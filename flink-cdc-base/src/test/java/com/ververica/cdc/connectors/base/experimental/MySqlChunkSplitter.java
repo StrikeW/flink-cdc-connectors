@@ -84,6 +84,7 @@ public class MySqlChunkSplitter implements JdbcSourceChunkSplitter {
             RowType splitType = getSplitType(splitColumn);
             for (int i = 0; i < chunks.size(); i++) {
                 ChunkRange chunk = chunks.get(i);
+                // Siuan: create a chunk split in the range of [chunkStart, chunkEnd]
                 SnapshotSplit split =
                         createSnapshotSplit(
                                 jdbc,

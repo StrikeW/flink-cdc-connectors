@@ -63,6 +63,7 @@ public class IncrementalSourceEnumerator
     private final SplitAssigner splitAssigner;
 
     // using TreeSet to prefer assigning stream split to task-0 for easier debug
+    // Siyuan:
     private final TreeSet<Integer> readersAwaitingSplit;
     private List<List<FinishedSnapshotSplitInfo>> finishedSnapshotSplitMeta;
 

@@ -32,6 +32,7 @@ public class StreamSplit extends SourceSplitBase {
     private final Offset startingOffset;
     private final Offset endingOffset;
     private final List<FinishedSnapshotSplitInfo> finishedSnapshotSplitInfos;
+    // Siyuan: Flink cdc能够支持schema changes吗？
     private final Map<TableId, TableChange> tableSchemas;
     private final int totalFinishedSplitSize;
     @Nullable transient byte[] serializedFormCache;

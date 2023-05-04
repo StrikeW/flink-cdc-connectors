@@ -110,6 +110,7 @@ public class MySqlScanFetchTask implements FetchTask<SourceSplitBase> {
                         changeEventSourceContext, sourceFetchContext.getOffsetContext());
 
         final StreamSplit backfillBinlogSplit = createBackfillBinlogSplit(changeEventSourceContext);
+        // Siyuan: 以下是一段优化逻辑，跳过binlog的读取
         // optimization that skip the binlog read when the low watermark equals high
         // watermark
         final boolean binlogBackfillRequired =

@@ -148,6 +148,7 @@ public class IncrementalSourceScanFetcher implements Fetcher<SourceRecords, Sour
                         break;
                     }
 
+                    // Siyuan: 还没开始处理binlog events，此时直接将snapshot record放入output
                     if (!reachChangeLogStart) {
                         outputBuffer.put((Struct) record.key(), record);
                     } else {

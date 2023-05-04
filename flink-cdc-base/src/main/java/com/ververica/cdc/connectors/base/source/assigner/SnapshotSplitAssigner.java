@@ -46,19 +46,23 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// Siyuan: MySqlSnapshotSplitAssigner的泛化
 /** Assigner for snapshot split. */
 public class SnapshotSplitAssigner<C extends SourceConfig> implements SplitAssigner {
     private static final Logger LOG = LoggerFactory.getLogger(SnapshotSplitAssigner.class);
 
+    // Siyuan: seems a source can process multiple tables
     private final List<TableId> alreadyProcessedTables;
     private final List<SchemalessSnapshotSplit> remainingSplits;
     private final Map<String, SchemalessSnapshotSplit> assignedSplits;
+    // Siyuan: 这些schemas有什么用呢？
     private final Map<TableId, TableChanges.TableChange> tableSchemas;
     private final Map<String, Offset> splitFinishedOffsets;
     private boolean assignerFinished;
 
     private final C sourceConfig;
     private final int currentParallelism;
+    // Siyuan: remainingTables等待被处理的table, 因为可能是recovery的场景，恢复之后会忽略已被处理的table
     private final LinkedList<TableId> remainingTables;
     private final boolean isRemainingTablesCheckpointed;
 

@@ -47,6 +47,7 @@ public class HybridSplitAssigner<C extends SourceConfig> implements SplitAssigne
 
     private final int splitMetaGroupSize;
 
+    // Siyuan: 这个是需要持久化的状态
     private boolean isStreamSplitAssigned;
 
     private final SnapshotSplitAssigner<C> snapshotSplitAssigner;
@@ -73,6 +74,7 @@ public class HybridSplitAssigner<C extends SourceConfig> implements SplitAssigne
                 offsetFactory);
     }
 
+    // Siyuan: This should be called during recovery, because it has a checkpoint
     public HybridSplitAssigner(
             C sourceConfig,
             int currentParallelism,
@@ -176,6 +178,9 @@ public class HybridSplitAssigner<C extends SourceConfig> implements SplitAssigne
     }
 
     // --------------------------------------------------------------------------------------------
+
+    // Siyuan: after we collect hw from all SnapshotSplits, we create a single binlog split,
+    // then transition to incremental phase.
 
     public StreamSplit createStreamSplit() {
         final List<SchemalessSnapshotSplit> assignedSnapshotSplit =

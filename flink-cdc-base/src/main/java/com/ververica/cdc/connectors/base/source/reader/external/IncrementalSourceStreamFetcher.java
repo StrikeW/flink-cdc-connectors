@@ -103,6 +103,7 @@ public class IncrementalSourceStreamFetcher implements Fetcher<SourceRecords, So
     @Nullable
     @Override
     public Iterator<SourceRecords> pollSplitRecords() throws InterruptedException {
+        // Siyuan: read this func to understand the incremental phase
         checkReadException();
         final List<SourceRecord> sourceRecords = new ArrayList<>();
         if (streamFetchTask.isRunning()) {

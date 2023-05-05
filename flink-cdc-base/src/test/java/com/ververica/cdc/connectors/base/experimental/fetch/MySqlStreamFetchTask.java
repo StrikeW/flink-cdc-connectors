@@ -127,7 +127,9 @@ public class MySqlStreamFetchTask implements FetchTask<SourceSplitBase> {
 
         @Override
         protected void handleEvent(MySqlOffsetContext offsetContext, Event event) {
+            // Siyuan: binlog split fetch task是通过扩展Debezium的StreamingChangeEventSource来实现的
             super.handleEvent(offsetContext, event);
+
             // check do we need to stop for fetch binlog for snapshot split.
             if (isBoundedRead()) {
                 final BinlogOffset currentBinlogOffset =
